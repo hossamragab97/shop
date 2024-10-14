@@ -1,0 +1,55 @@
+<!-- breadcrumb start -->
+<div class="breadcrumb-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="page-title">
+                    <h2>select slider</h2>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <nav aria-label="breadcrumb" class="theme-breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a routerLink="/admin">admin</a></li>
+                        <li class="breadcrumb-item active">slider</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- breadcrumb End -->
+
+<div class="container">
+    <div class="row" *ngFor="let i of allImages ; let index=index" style="margin-top: 30px">
+        <div class="col-md-6">
+            <img class="img_mobile" [src]="i" width="100%" height="200px"> &nbsp;
+        </div>
+        <div class="col-md-6">
+            <label style="margin-bottom:0;" class="btn btn-success" for="img{{index}}">Choose
+                photo</label> &nbsp;
+            <input style="display:none;" id="img{{index}}" type="file" name="photo" accept="image/*"
+                (change)="onFileSelected($any($event).target.files,index)">
+            <!-- <button (click)="choose(index)" class="btn btn-success">select</button> &nbsp; -->
+            <button (click)="deleteImage(index)" *ngIf="allImages.length>1" class="btn btn-danger">Delete</button>
+            &nbsp;
+            <button *ngIf="index==allImages.length-1" (click)="addImage()" class="btn btn-warning">Add +</button>
+        </div>
+    </div>
+</div>
+<button (click)="save_change()"
+    style="width: 95%; border-radius: 10px;margin: 0 auto; margin-bottom: 15px; margin-top: 15px;"
+    class="btn btn-success btn-lg btn-block">
+    <i class="fa fa-save"></i>
+    save change</button>
+
+
+
+
+
+<!-- <button class="btn btn-success addfiles">choose a photo</button> -->
+<!-- <input  type="file"  id="fileupload"  style='display: none;' name="photo"
+    (change)="onFileSelected($any($event).target.files)"> -->
+
+
+<!-- <input type="file" name="filefield" multiple="multiple"> -->

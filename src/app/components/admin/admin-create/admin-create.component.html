@@ -1,0 +1,127 @@
+<!-- breadcrumb start -->
+<div class="breadcrumb-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="page-title">
+                    <h2>Admin-create</h2>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <nav aria-label="breadcrumb" class="theme-breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a routerLink="/admin">admin</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Admin-create</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- breadcrumb End -->
+
+
+<!--section start-->
+<section class="login-page section-b-space">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h3>add product</h3>
+                <div class="theme-card">
+                    <form class="theme-form" method="POST" [formGroup]="addForm" (ngSubmit)="onSubmit()">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input placeholder="Name" name="name" type="text" formControlName="name" [(ngModel)]="groupf.name"
+                                class="form-control input_border" value="{{groupf.name}}">
+                            <div *ngIf="formFields.name.errors && submitted" class="form-control-error"
+                                data-error-list="">
+                                <h6 class="text-red" *ngIf="formFields.name.errors.required && submitted">
+                                    <i class="fa fa-circle"></i>
+                                    {{ 'Name is required.' | translate }}
+                                </h6>
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <input placeholder="Description" name="description" type="text" formControlName="description" [(ngModel)]="groupf.description"
+                                class="form-control input_border" value="{{groupf.description}}">
+                            <div *ngIf="formFields.description.errors && submitted" class="form-control-error"
+                                data-error-list="">
+                                <!-- <h6 class="text-red" *ngIf="formFields.description.errors.required && submitted">
+                                    <i class="fa fa-circle"></i>
+                                    {{ 'Description is required.' | translate }}
+                                </h6> -->
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="category">Category</label>
+                            <ng-multiselect-dropdown formControlName="category" [placeholder]="'Select Category'"
+                                [(ngModel)]="selectCategory" [settings]="dropdownSettings" [data]="allCategory">   
+                            </ng-multiselect-dropdown>
+                            <div *ngIf="formFields.category.errors && submitted" class="form-control-error"
+                                data-error-list="">
+                                <h6 class="text-red" *ngIf="formFields.category.errors.required && submitted">
+                                    <i class="fa fa-circle"></i>
+                                    {{ 'Category is required.' | translate }}
+                                </h6>
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="cairoOrRiyadh">For</label>
+                            <ng-multiselect-dropdown formControlName="cairoOrRiyadh" [placeholder]="'Select Country'"
+                                [(ngModel)]="selectedCountry" [settings]="dropdownSettings" [data]="reigon">
+                            </ng-multiselect-dropdown>
+                        
+                            <div *ngIf="formFields.cairoOrRiyadh.errors && submitted" class="form-control-error"
+                                data-error-list="">
+                                <h6 class="text-red" *ngIf="formFields.cairoOrRiyadh.errors.required && submitted">
+                                    <i class="fa fa-circle"></i>
+                                    {{ 'Country is required.' | translate }}
+                                </h6>
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="price">Price</label>
+                            <input placeholder="Price" name="price" type="text" formControlName="price"
+                                (ngModelChange)="priceNotNum($event)"
+                                [(ngModel)]="groupf.price" class="form-control input_border">
+                            <div *ngIf="formFields.price.errors && submitted" class="form-control-error"
+                                data-error-list="">
+                                <h6 class="text-red" *ngIf="formFields.price.errors.required && submitted">
+                                    <i class="fa fa-circle"></i>
+                                    {{ 'Price is required.' | translate }}
+                                </h6>                                
+                            </div>
+                            <h6 class="text-red" *ngIf="priceNotNumber">
+                                <i class="fa fa-circle"></i>
+                                {{ 'Price should be number.' | translate }}
+                            </h6>
+                        </div>
+                        <div class="form-group" style="display: flex; flex-direction: column;">
+                            <label>Photo</label>
+                            <img src="{{imageUrl}}" width="180px" height="200px" style="border: 1px solid;">
+                            <label for="photo" class="btn btn-success choosePhoto">choose a photo</label>
+                            <!-- <button class="btn btn-success addfiles">choose a photo</button> -->
+                            <input type="file"  id="photo"  style='display: none;' name="photo"
+                                (change)="onFileSelected($any($event).target.files)"  accept=".jpg, .jpeg, .png"
+                                >
+                            <br>
+  
+                            <h6 class="text-red" *ngIf="!groupf.image && submitted">
+                                <i class="fa fa-circle"></i>
+                                {{ 'photo is required.' | translate }}
+                            </h6>
+                        </div>
+                        <button type="submit" class="btn btn-solid">{{addOrEdit}}
+                            &nbsp;<i class="fa fa-chevron-circle-right"></i></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--Section ends-->

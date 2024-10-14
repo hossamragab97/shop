@@ -1,0 +1,84 @@
+<!-- breadcrumb start -->
+<div class="breadcrumb-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="page-title">
+                    <h2>Add category</h2>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <nav aria-label="breadcrumb" class="theme-breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a routerLink="/admin">admin</a></li>
+                        <li class="breadcrumb-item active">add category</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- breadcrumb End -->
+
+
+<!--section start-->
+<section class="login-page section-b-space">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h3>add category</h3>
+                <div class="theme-card">
+                    <form class="theme-form" method="POST" [formGroup]="addForm" (ngSubmit)="onSubmit()">
+                        <div class="form-group">
+                            <label for="category">Category</label>
+                            <input style="background: white !important; color: #5d5d5d !important;" placeholder="Category"
+                                name="category" type="text" formControlName="category" [(ngModel)]="category"
+                                class="form-control">
+                            <div *ngIf="formFields.category.errors && submitted" class="form-control-error"
+                                data-error-list="">
+                                <h6 class="text-red" *ngIf="formFields.category.errors.required && submitted">
+                                    <i class="fa fa-circle"></i>
+                                    {{ 'Category is required.' | translate }}
+                                </h6>
+
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-solid">add
+                            &nbsp;<i class="fa fa-chevron-circle-right"></i></button>
+                        <!-- <a href="#" class="btn btn-solid">Login</a> -->
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--Section ends-->
+
+
+<table datatable [dtOptions]="dtOptions" class="row-border hover" style="width: 95%; margin-top: 10px;">
+    <thead >
+      <tr>
+        <th>Category Name</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody style="text-align: center;">
+      <!-- <tr>
+        <td>
+            <img class="cart_img" src="../assets/images/skarpt_shop/sensor.png" alt="">
+        </td>
+        <td>sensor_name</td>
+        <td>sensor</td>
+        <td>400</td>
+        <td>
+            <button class="btn btn-success">
+                <i class="fa fa-edit"></i>
+            </button>
+            &nbsp;
+            <button class="btn btn-danger">
+                <i class="fa fa-close"></i>
+            </button>
+        </td>
+      </tr> -->
+    </tbody>
+  </table>

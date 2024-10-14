@@ -1,0 +1,70 @@
+<!-- breadcrumb start -->
+<div class="breadcrumb-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="page-title">
+                    <h2>Check-out</h2>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <nav aria-label="breadcrumb" class="theme-breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a routerLink="/home">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Check-out</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- breadcrumb End -->
+
+
+<!-- section start -->
+<section class="section-b-space">
+    <div class="container">
+        <div class="checkout-page">
+            <div class="checkout-form">
+                <div *ngIf="listOrder.length==0">
+                    <h2 class="text-center">
+                        not found any order yet !!
+                    </h2>
+                </div>
+                <form>
+                    <div *ngIf="listOrder.length>0">
+                        <div class="row"  style="margin-bottom: 15px;">
+                            <div class="col-lg-12 col-sm-12 col-xs-12">
+                                <div class="checkout-details">
+                                    <div class="order-box">
+                                        <div class="title-box">
+                                            <div>Product <span>Total</span></div>
+                                        </div>
+                                        <ul class="qty">
+                                            <li *ngFor="let i of listOrder">
+                                                {{i['name']}} ×
+                                                {{i['quantity']}} 
+                                                <span>{{i.region=='Egypt'?'EGP':'SAR'}}&nbsp;{{i['quantity']*i['price']}}</span>
+                                            </li>
+                                            <!-- <li>**** × 1 <span>55.00</span></li> -->
+                                        </ul>
+                                        <ul class="total">
+                                            <li *ngIf="allTotal[0].egy>0">Total <span class="count">EGP &nbsp;{{allTotal[0].egy}}</span></li>
+                                            <li *ngIf="allTotal[0].ksa>0">Total <span class="count">SAR &nbsp;{{allTotal[0].ksa}}</span></li>
+                                        </ul>
+                                    </div>
+                                    <div class="text-center">
+                                        <a (click)="placeOrder()" class="btn-solid btn">
+                                            Place Order
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- section end -->

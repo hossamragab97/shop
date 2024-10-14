@@ -1,0 +1,48 @@
+<!-- breadcrumb start -->
+<div class="breadcrumb-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="page-title">
+                    <h2>today product</h2>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <nav aria-label="breadcrumb" class="theme-breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a routerLink="/admin">admin</a></li>
+                        <li class="breadcrumb-item active">toDay</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- breadcrumb End -->
+
+
+<div class="collection-wrapper" style="margin-top: 15px;margin-bottom: 10px;">
+    <div class="container">
+        <ng-multiselect-dropdown style="padding: 10px;" 
+        [placeholder]="'Select Products'" 
+        [(ngModel)]="selectedProducts"
+        (onSelect)="onSelectProduct($event)" 
+        (onDeSelect)="onDeSelectProduct()" 
+        (onDeSelectAll)="onDeSelectAll()"
+        [settings]="dropdownSettings" [data]="allProducts">
+    </ng-multiselect-dropdown>
+    </div>
+
+    <div style="text-align:center">
+        <h5 *ngIf="isProductSelect" class="text-red">
+            <i class="fa fa-circle"></i> please select product
+        </h5>
+    </div>
+
+
+    <div  style="text-align: center;margin-top: 10pxs;" >
+        <button class="btn btn-solid" (click)="save_products()">
+            <i class="fa fa fa-save "></i>
+            Save change</button>
+    </div>
+</div>

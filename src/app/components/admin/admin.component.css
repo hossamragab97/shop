@@ -1,0 +1,30 @@
+
+.cart_img{
+    width: 100px;
+    height:100px;
+    border: 1px solid rgb(37, 32, 32) !important;
+}
+
+::ng-deep table.dataTable.row-border tbody tr:first-child th, table.dataTable.row-border tbody tr:first-child td, table.dataTable.display tbody tr:first-child th, table.dataTable.display tbody tr:first-child td {
+  text-align: center;
+}
+
+table.dataTable thead > tr > th.sorting, table.dataTable thead > tr > th.sorting_asc, table.dataTable thead > tr > th.sorting_desc, table.dataTable thead > tr > th.sorting_asc_disabled, table.dataTable thead > tr > th.sorting_desc_disabled, table.dataTable thead > tr > td.sorting, table.dataTable thead > tr > td.sorting_asc, table.dataTable thead > tr > td.sorting_desc, table.dataTable thead > tr > td.sorting_asc_disabled, table.dataTable thead > tr > td.sorting_desc_disabled {
+    text-align: center;
+}
+
+table.dataTable th,
+table.dataTable td {
+    white-space: nowrap;
+}
+
+table tr td{
+    text-align: center;
+}
+
+
+
+
+  .button-admin button{
+        margin-left: 5px;
+  }

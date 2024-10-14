@@ -1,0 +1,32 @@
+.search_model{
+  height: 400px;
+}
+
+.color_pound{
+  color: #e4604a !important;
+}
+
+.carousel-indicators li{
+  width: 10px;
+  height: 10px;
+}
+
+/* .btn-solid:hover {
+  color: #e4604a !important;
+} */
+
+@media screen and (max-width: 480px) {
+  ::ng-deep .slick-next{
+    right: -10px !important;
+  }  
+  ::ng-deep .slick-prev {
+    left: -10px !important;
+  }
+}
+
+.text_inline{
+  width: 100%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}

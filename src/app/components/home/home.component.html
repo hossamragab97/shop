@@ -1,0 +1,115 @@
+
+<div id="carouselExampleControls" data-interval="3000" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item" *ngFor="let photo of images;let i = index"
+        [ngClass]="{'active': i == 0 }">
+        <img class="hhh" [src]="photo" class="d-block w-100" height="400px">
+      </div>
+      <a *ngIf="images.length>1" class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a *ngIf="images.length>1" class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
+    </div>
+  </div>
+
+
+  
+<!-- Paragraph-->
+<div class="title1 section-t-space">
+    <h2 class="title-inner1">today</h2>
+</div>
+
+<div class="container-fluid" style="margin-bottom: 15px;">
+    <div class="row" style="display: flex; justify-content: center;">
+            <div class="col-xl-3 col-md-4 col-6 col-grid-box product-christmas"
+            *ngFor="let product of products">
+            <div class="product-box" style="margin-top: 20px;">
+                <div class="img-wrapper">
+                    <div class="front">
+                        <a (click)="getPrdouctInfo(product)" style="cursor: pointer;"
+                            data-toggle="modal" data-target="#quick-view"><img
+                                src="{{image_path}}{{product['photo']}}" class="img-fluid img_products"
+                                alt=""></a>
+                    </div>
+                    <div class="cart-info cart-wrap">
+                        <button (click)="add_cart(product['id'],quantity)"
+                            title="Add to cart"><i
+                                class="fa fa-shopping-cart"></i></button>
+                        <a style="cursor: pointer;" (click)="add_wishlist(product['id'])"
+                            title="Add to Wishlist"><i class="fa fa fa-heart-o"
+                                aria-hidden="true"></i></a>
+                        <!-- <a href="#" data-toggle="modal" data-target="#quick-view" title="Quick View"><i
+                                        class="ti-search" aria-hidden="true"></i></a>        -->
+                    </div>
+                </div>
+                <div class="product-detail">
+                    <h6 (click)="getPrdouctInfo(product)"
+                        style="cursor: pointer;" data-toggle="modal"
+                        data-target="#quick-view" title="{{product['name']}}"
+                        style="color: white;" class="text_inline">
+                        {{product['name']}}
+                    </h6>
+                    <h4 class="color_pound">
+                        <span style="font-size: 15px;">{{ currency }}</span>
+                        {{product['price']}}
+                    </h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Quick-view modal popup start-->
+<div class="modal fade bd-example-modal-lg theme-modal" id="quick-view" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document" *ngFor="let modall of modal">
+        <div class="modal-content quick-view-modal">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <div class="row">
+                    <div class="col-lg-6 col-xs-12">
+                        <div class="quick-view-img"><img src="{{image_path}}{{modall['photo']}}" alt=""
+                                class="img-fluid blur-up lazyload search_model"></div>
+                    </div>
+                    <div class="col-lg-6 rtl-text">
+                        <div class="product-right">
+                            <h3>{{modall['name']}}</h3>
+                            <h3><span style="font-size: 18px;">{{ currency }}</span>&nbsp;{{modall['price']}}</h3>
+                            <div class="border-product">
+                                <h6 class="product-title">product details</h6>
+                                <p>
+                                    {{modal[0]['description']}}
+                                </p>
+                                <!-- <p>Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium
+                                    doloremque laudantium</p> -->
+                            </div>
+                            <div class="product-description border-product">
+                                <h6 class="product-title">quantity</h6>
+                                <div class="qty-box">
+                                    <div class="input-group"><span class="input-group-prepend"><button type="button"
+                                                class="btn quantity-left-minus" data-type="minus" data-field=""
+                                                (click)="mins()"><i class="ti-angle-left"></i></button> </span>
+                                        <input type="text" name="quantity" class="form-control input-number" value="1"
+                                            [(ngModel)]="quantity"> <span class="input-group-prepend"><button
+                                                type="button" class="btn quantity-right-plus" data-type="plus"
+                                                data-field="" (click)="plus()"><i
+                                                    class="ti-angle-right"></i></button></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-buttons"><a (click)="add_cart(modal[0]['id'],quantity)" class="btn btn-solid"
+                                    data-dismiss="modal">add to cart</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Quick-view modal popup end-->

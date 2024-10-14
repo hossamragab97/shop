@@ -1,0 +1,213 @@
+<!-- header start -->
+<header class="header-tools marketplace">
+    <div class="mobile-fix-option"></div>
+    <div class="top-header">
+        <div class="container-fluid custom-container">
+            <div class="row">
+                <div class="col-lg-5">
+                    <div class="header-contact">
+                        <ul style="margin-top: 5px;">
+                            <li>Welcome to Our store</li>
+                            <li><i class="fa fa-phone" aria-hidden="true"></i>Call Us: +20 233900399</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-7 text-right">
+                    <ul class="header-dropdown">
+                        <li *ngIf="login">
+                            <div class="dropdown dropHover d-none d-sm-block mobile-account">
+                                <button class="btn btn-outline-light dropdown-toggle drop" type="button"
+                                    id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false">
+                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                    {{name}}
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item"  style="color: rgb(48, 51, 50);" (click)="logOut()"
+                                        routerLink="/home" data-lng="es">Logout</a>
+                                </div>
+                            </div>
+                        </li>
+                        <li *ngIf="!login" routerLink="/login" class="mobile-account">
+                            <i class="fa fa-sign-in"></i>
+                            login
+                        </li>
+                        <li *ngIf="login">
+                            <div class="dropdown dropHover d-none d-sm-block">
+                                <button class="btn btn-outline-light dropdown-toggle drop" type="button"
+                                    id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false">
+                                    <img src="{{(country=='Egypt') ? '../assets/images/skarpt_shop/egypt.png' : '../assets/images/skarpt_shop/ksa1.png'}}"
+                                        width="20px" height="20px">
+                                    &nbsp;
+                                    {{(country=='Egypt') ? 'Egypt' : 'Ksa' }}
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" style="color: rgb(48, 51, 50);"
+                                        (click)="changeCountry('Egypt')">
+                                        <img src="../assets/images/skarpt_shop/egypt.png" width="20px" height="20px">
+                                        &nbsp; Egypt
+                                    </a>
+                                    <a class="dropdown-item" style="color: rgb(48, 51, 50);"
+                                        (click)="changeCountry('ksa')">
+                                        <img src="../assets/images/skarpt_shop/ksa1.png" width="20px" height="20px">
+                                        &nbsp; ksa
+                                    </a>
+                                </div>
+                            </div>
+                        </li>
+                        <li *ngIf="login">      
+                            <a class="d-none d-sm-block cart" routerLink="/cart">
+                                <!-- <i class="fa fa-shopping-cart"></i> -->
+                                <i class="fa" style="font-size:24px">&#xf07a;</i>
+                                <span class='badge badge-warning' id='lblCartCount'
+                                    [ngStyle]="{ 'background' : numOfCart==0? '#b62626' : '#119e74' }"> {{numOfCart}}
+                                </span>
+                                CART</a>
+                        </li>
+
+                        <!-- <li>
+                            <div class="dropdown dropHover d-none d-sm-block">
+                                <button class="btn btn-outline-light dropdown-toggle drop" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">                                    
+                                    <i class="fa fa-cog" style="font-size: 22px;"></i>
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
+                                  <a class="dropdown-item" style="color: rgb(48, 51, 50);" (click)="ChangeCurrentLang('en')">english
+                                  </a>
+                                  <a class="dropdown-item" style="color: rgb(48, 51, 50);" (click)="ChangeCurrentLang('ar')">arabic
+                                  </a>
+                                </div>
+                              </div>
+                        </li> -->
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid custom-container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="main-menu">
+                    <div class="menu-left">
+                        <div class="brand-logo">
+                            <a routerLink="/home">
+                                <span
+                                    style="font-weight: 500;font-size: 37px;letter-spacing: 3.74px;line-height: 46px;">
+                                    Skärpt Shop
+                                </span>
+                                <!-- <img src="../assets/images/icon/logo/18.png"
+                                    class="img-fluid blur-up lazyload" alt=""> -->
+                            </a>
+                        </div>
+                    </div>
+                    <div class="menu-right pull-right">
+                        <div>
+                            <nav id="main-nav">
+                                <div class="toggle-nav"><i class="fa fa-bars sidebar-bar"></i></div>
+                                <ul id="main-menu" class="sm pixelstrap sm-horizontal">
+                                    <li>
+                                        <div class="mobile-back text-right">Back<i class="fa fa-angle-right pl-2"
+                                                aria-hidden="true"></i></div>
+                                    </li>
+                                    <li>
+                                        <a class="header_link_hover" routerLink="/home">
+                                            <i class="fa fa-home"></i>
+                                            {{'home'|translate}}</a>
+                                    </li>
+                                    <li>
+                                        <a class="header_link_hover" (click)="shop()" style="cursor: pointer;">
+                                            <!-- <i class="fas fa-store"></i> -->
+                                            <!-- <i class="fa-solid fa-store"></i> -->
+                                            <i class="fa fa-shopping-bag"></i>
+                                            SHOP PAGE</a>
+                                    </li>
+                                    <li *ngIf="login" class="d-xl-none">
+                                        <a class="header_link_hover" routerLink="/cart">
+                                            <i class="fa fa-shopping-cart"></i>
+                                            CART
+                                            <span *ngIf="numOfCart>0" style="color:#2df72d">
+                                                ({{numOfCart}})
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li *ngIf="login">
+                                        <a class="header_link_hover" routerLink="/wishlist">
+                                            <i class="fa fa-heart"></i>
+                                            WISHLIST</a>
+                                    </li>
+                                    <li *ngIf="login">
+                                        <a class="header_link_hover" routerLink="/order">
+                                            <i class="fa fa-list"></i>
+                                            ORDER</a>
+                                    </li>
+                                    <li *ngIf="(accountType==1) && login">
+                                        <a class="header_link_hover" routerLink="/admin">
+                                            <i class="fa fa-desktop"></i>
+                                            DASHBOARD</a>
+                                    </li>
+                                    <li *ngIf="login" class="d-block d-sm-none">
+                                        <div class="dropdown">
+                                            <button style="border: none;"
+                                                class="btn btn-outline-light dropdown-toggle drop" type="button"
+                                                id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                                aria-expanded="false">
+                                                <img src="{{(country=='Egypt') ? '../assets/images/skarpt_shop/egypt.png' : '../assets/images/skarpt_shop/ksa1.png'}}"
+                                                    width="20px" height="20px">
+                                                &nbsp;
+                                                {{(country=='Egypt') ? 'Egypt' : 'Ksa' }}
+                                            </button>
+                                            <!-- <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                (Country)
+                                            </button> -->
+                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                <a class="dropdown-item" style="color: rgb(48, 51, 50);"
+                                                    (click)="changeCountry('Egypt')">
+                                                    <img src="../assets/images/skarpt_shop/egypt.png" width="20px"
+                                                        height="20px"> &nbsp; Egypt
+                                                </a>
+                                                <a class="dropdown-item" style="color: rgb(48, 51, 50);"
+                                                    (click)="changeCountry('Ksa')">
+                                                    <img src="../assets/images/skarpt_shop/ksa1.png" width="20px"
+                                                        height="20px"> &nbsp; Ksa
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <!-- <li class="d-block d-sm-none">
+                                    <div class="dropdown">
+                                        <button style="border: none;"  class="btn btn-outline-light dropdown-toggle drop" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">                                    
+                                            <i class="fa fa-cog"></i>&nbsp; SETTING
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
+                                          <a class="dropdown-item" style="color: rgb(48, 51, 50);" (click)="ChangeCurrentLang('en')">english
+                                          </a>
+                                          <a class="dropdown-item" style="color: rgb(48, 51, 50);" (click)="ChangeCurrentLang('ar')">arabic
+                                          </a>
+                                        </div>
+                                      </div>
+                            </li> -->
+                                    <li class="d-block d-xl-none" *ngIf="!login">
+                                        <a class="header_link_hover" routerLink="/login">
+                                            <i class="fa fa-sign-in"></i>
+                                            LOGIN</a>
+                                    </li>
+                                    <li class="d-block d-xl-none" *ngIf="login">
+                                        <a style="cursor: pointer;" class="header_link_hover" (click)="logOut()">
+                                            <i class="fa fa-sign-in"></i>
+                                            LOGOUT</a>
+                                    </li>
+
+                                </ul>
+                            </nav>
+                        </div>
+                        <div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- header end -->

@@ -1,0 +1,31 @@
+
+
+  .text_inline{
+    width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .color_pound{
+    color: #e4604a !important;
+  }
+
+  .search_model{
+    height: 400px;
+  }
+
+
+
+.btn-solid{
+  padding: 0;
+}
+
+.breadcrumb-section{
+  padding: 15px;
+}
+
+
+::placeholder {
+  color: rgb(0, 0, 0 , 0.6)
+}

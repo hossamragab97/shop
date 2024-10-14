@@ -1,0 +1,113 @@
+<!-- breadcrumb start -->
+<div class="breadcrumb-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="page-title">
+                    <h2>wishlist</h2>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <nav aria-label="breadcrumb" class="theme-breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a routerLink="/home">Home</a></li>
+                        <li class="breadcrumb-item active">wishlist</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- breadcrumb End -->
+
+<div class="container">
+    <div class="row">
+        <div *ngFor="let wishlist of allWishlist ; let index=index" class="col-lg-4 col-md-6 col-xs-12">
+        <div class="card" style="height: 300px;border: 1px solid; margin-top:20px ;" >
+                <img src="{{wishlist.image}}" class="card-img-top cart_img" style="margin: 0 auto; margin-top: 10px" alt="...">
+                <div class="card-body">
+              <h5 class="name_text" class="card-title">{{wishlist.name}}</h5>
+              <p  style="white-space:nowrap;
+                         overflow:hidden;
+                         text-overflow:ellipsis;
+                         cursor:pointer;"
+                  class="card-text description"
+                  title="{{wishlist.description}}">
+                  {{wishlist.description==''?'.':wishlist.description}}
+              </p>
+              <div style="display:flex;justify-content: center;">
+                <button (click)="add_cart(wishlist.id)" class="cart btn btn-success">
+                   add to cart 
+                  &nbsp;&nbsp;
+                  <i class="ti-shopping-cart cart-style"></i> 
+                </button>
+                &nbsp;&nbsp;
+                <button (click)="deleteWishlist(wishlist.id)"  class="text-red" class="cart btn btn-danger">
+                    Delete
+                   &nbsp;&nbsp;
+                   <i class="fa fa-trash cart-style"></i> 
+                 </button>
+            </div>
+            <h5 class="price" style="margin-top: 10px;">
+                <span>price : </span>
+                <span class="text-red">{{wishlist.region=='Egypt'?'EGP':'SAR'}}&nbsp;{{wishlist.price}}</span>
+            </h5>
+            </div>
+        </div>
+    </div>
+
+</div>
+</div>
+
+
+<!-- <div *ngFor="let i of allWishlist ; let index=index">
+    <div class="container" style=" padding: 10px; border: solid 1px rgb(150, 142, 142); margin-top: 20px;">
+        <div class="row">
+            <div class="col-3">
+                <img class="cart_img" src="{{i.image}}">
+            </div>
+            <div class="col-5" style="display: flex; flex-direction: column;justify-content: center;">
+                <div style="margin-top: 10px;" class="text-centerx">
+                    <h4>
+                        {{i.name}}
+                    </h4>
+                </div>
+                <h4>
+                    <span>price : </span>
+                    <span style="font-size: 15px;" class="td-color">{{i.price}}</span>
+                </h4>
+            </div>
+            <div class="col-4" style="display: flex; flex-direction: column; justify-content: center;">
+                    <h3 class="td-color">
+                        <a  (click)="deleteWishlist(i.id)" style="cursor: pointer;" class="delete">
+                            <i class="ti-close"></i>
+                        </a>
+                        <button (click)="add_cart(i.id)" class="cart btn btn-success">
+                            <i class="ti-shopping-cart cart-style"></i>
+                        </button>
+                    </h3>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+
+<!--section start-->
+<section class="wishlist-section section-b-space" >
+        <div class="container">
+            <ngx-spinner name="loadWishList" size="small" color="#ffffff" type="ball-spin-clockwise" [fullScreen]="false">
+                <p style="color: white"> Loading... </p>
+            </ngx-spinner>
+            <div *ngIf="allWishlist.length==0">
+                <h2 class="text-center">
+                    not found any Wishlist yet !!
+                </h2>
+            </div>
+            <div class="row wishlist-buttons">
+                <div class="col-12">
+                    <a routerLink="/products" class="btn btn-solid">continue shopping</a>
+                </div>
+            </div>
+        </div>
+</section>
+<!--section end-->

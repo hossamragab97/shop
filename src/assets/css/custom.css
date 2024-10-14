@@ -1,0 +1,61 @@
+.btn-solid:hover {
+  color: #e4604a !important;
+}
+
+.img_products {
+  height: 200px;
+  width: 100%;
+  border: 1px solid white !important;
+}
+
+.header_link_hover:hover {
+  color: #e4604a !important;
+}
+
+.text-red {
+  color: #e4604a !important;
+}
+
+.multiselect-dropdown .dropdown-list {
+  background: #2f353a !important;
+}
+
+.multiselect-dropdown .dropdown-list ul li div {
+  color: white !important;
+}
+
+
+.dropdown-list li:hover {
+  background: #626c74 !important;
+}
+
+
+.input_border {
+  border-color: wheat !important;
+}
+
+
+
+.dropdown-list li{
+  width: 100%;
+}
+
+.dropdown-list .filter-textbox input{
+  margin: 0 !important;
+  height: 22px !important;
+}
+
+.dropdown-list li {
+  padding: 10px !important;
+}
+
+.swal2-icon.swal2-warning{
+  border-color: #ff0000 !important;
+  color: #ff0000 !important;
+}
+.swal2-popup{
+  background: #1c2023 !important;
+}
+#swal2-title{
+  color: white !important;
+}

@@ -1,0 +1,64 @@
+
+
+
+    <!-- breadcrumb start -->
+<div class="breadcrumb-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="page-title">
+                    <h2>admin</h2>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <nav aria-label="breadcrumb" class="theme-breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a routerLink="/home">Home</a></li>
+                        <li class="breadcrumb-item active">admin</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>  
+</div>
+<!-- breadcrumb End -->
+
+
+<div class="container">
+    <ng-multiselect-dropdown style="padding: 10px;" [placeholder]="'Select Action'" [(ngModel)]="selectedAction"
+    (onSelect)="onSelectCatogry($event)" [settings]="dropdownSettings" [data]="allAction">
+</ng-multiselect-dropdown>
+</div>
+
+
+
+<table datatable [dtOptions]="dtOptions" class="row-border hover" style="width: 95%; margin-top: 10px;">
+    <thead>
+      <tr>
+        <th>photo</th>
+        <th>name</th>
+        <th>price</th>
+        <th>action</th>
+      </tr>
+    </thead>
+    <tbody style="text-align: center;">
+      <!-- <tr>
+        <td>
+            <img class="cart_img" src="../assets/images/skarpt_shop/sensor.png" alt="">
+        </td>
+        <td>sensor_name</td>
+        <td>sensor</td>
+        <td>400</td>
+        <td>
+            <button class="btn btn-success">
+                <i class="fa fa-edit"></i>
+            </button>
+            &nbsp;
+            <button class="btn btn-danger">
+                <i class="fa fa-close"></i>
+            </button>
+        </td>
+      </tr> -->
+    </tbody>
+  </table>
+  
