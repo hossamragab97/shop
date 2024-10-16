@@ -22,8 +22,9 @@
 .left-addon input  { padding-left:  30px; }
 .right-addon input { padding-right: 30px; }
 
+
 input{
-  margin-bottom: 0 !important;
-  background: white !important;
-  color: #5d5d5d !important
-}
+    margin-bottom: 5px !important;
+    background: white !important;
+    color: #5d5d5d !important
+  }

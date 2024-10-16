@@ -32,6 +32,10 @@
                             <i class="fa fa-sign-in"></i>
                             login
                         </li>
+                        <li *ngIf="!login" routerLink="/register" class="mobile-account">
+                            <i class="fa fa-sign-in"></i>
+                            Register
+                        </li>
                         <li *ngIf="login">
                             <div class="dropdown dropHover d-none d-sm-block">
                                 <button class="btn btn-outline-light dropdown-toggle drop" type="button"
@@ -94,7 +98,7 @@
                             <a routerLink="/home">
                                 <span
                                     style="font-weight: 500;font-size: 37px;letter-spacing: 3.74px;line-height: 46px;">
-                                    Skärpt Shop
+                                    My Shop
                                 </span>
                                 <!-- <img src="../assets/images/icon/logo/18.png"
                                     class="img-fluid blur-up lazyload" alt=""> -->
@@ -191,6 +195,11 @@
                                         <a class="header_link_hover" routerLink="/login">
                                             <i class="fa fa-sign-in"></i>
                                             LOGIN</a>
+                                    </li>
+                                    <li class="d-block d-xl-none" *ngIf="!login">
+                                        <a class="header_link_hover" routerLink="/register">
+                                            <i class="fa fa-sign-in"></i>
+                                            Register</a>
                                     </li>
                                     <li class="d-block d-xl-none" *ngIf="login">
                                         <a style="cursor: pointer;" class="header_link_hover" (click)="logOut()">

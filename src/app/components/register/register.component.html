@@ -1,0 +1,109 @@
+<div class="breadcrumb-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="page-title">
+                    <h2>create account</h2>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <nav aria-label="breadcrumb" class="theme-breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a routerLink="/home">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">create account</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- breadcrumb End -->
+
+
+<!--section start-->
+<section class="register-page section-b-space">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h3>create account</h3>
+                <div class="theme-card">
+                    <form class="theme-form" method="POST" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                        <div class="form-row">
+                            <div class="col-md-6">
+                                <label for="email">First Name</label>
+                                <input style="background: white !important; color: #5d5d5d !important;"
+                                    placeholder="First Name" name="firstName" type="text" formControlName="firstName"
+                                    [(ngModel)]="firstName" class="form-control">
+                                <div *ngIf="formFields.firstName.errors && submitted" class="form-control-error"
+                                    data-error-list="">
+                                    <h6 class="text-red" *ngIf="formFields.firstName.errors.required && submitted">
+                                        <i class="fa fa-circle"></i>
+                                        {{ 'First Name is required.' | translate }}
+                                    </h6>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="review">Last Name</label>
+                                <input style="background: white !important; color: #5d5d5d !important;"
+                                    placeholder="Last Name" name="lastName" type="text" formControlName="lastName"
+                                    [(ngModel)]="lastName" class="form-control">
+                                <div *ngIf="formFields.lastName.errors && submitted" class="form-control-error"
+                                    data-error-list="">
+                                    <h6 class="text-red" *ngIf="formFields.lastName.errors.required && submitted">
+                                        <i class="fa fa-circle"></i>
+                                        {{ 'Last Name is required.' | translate }}
+                                    </h6>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-6">
+                                <label for="email">email</label>
+                                <input style="background: white !important; color: #5d5d5d !important;"
+                                    placeholder="Email" name="email" type="email" formControlName="email"
+                                    [(ngModel)]="email" class="form-control">
+                                <div *ngIf="formFields.email.errors && submitted" class="form-control-error"
+                                    data-error-list="">
+                                    <h6 class="text-red" *ngIf="formFields.email.errors.email && submitted">
+                                        <i class="fa fa-circle"></i>
+                                        Email is not valid.
+                                    </h6>
+                                    <h6 class="text-red" *ngIf="formFields.email.errors.required && submitted">
+                                        <i class="fa fa-circle"></i>
+                                        {{ 'Email is required.' | translate }}
+                                    </h6>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="review">Password</label>
+                                <div class="inner-addon right-addon">
+                                    <i (click)="PasswordSecure()" style="cursor: pointer;"
+                                        class="{{(passwordSecure) ? 'fa fa-eye' : 'fa fa-eye-slash'}}"></i>
+                                    <input type="{{(passwordSecure) ? 'text' : 'password'}}"
+                                        style="background: white !important; color: #5d5d5d !important;"
+                                        placeholder="{{ 'Password' | translate  }}" formControlName="password"
+                                        name="password" [(ngModel)]="password" class="form-control">
+                                </div>
+
+                                <div *ngIf="formFields.password.errors && submitted" class="form-control-error"
+                                    data-error-list="">
+                                    <h6 class="text-red" *ngIf="formFields.password.errors.required && submitted">
+                                        <i class="fa fa-circle"></i>
+                                        {{ 'password required.' | translate }}
+                                    </h6>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row" style="margin-top: 10px;">
+                            <div class="col-md-6">
+                                <button type="submit" class="btn btn-solid">create Account
+                                    &nbsp;<i class="fa fa-chevron-circle-right"></i></button>
+                                </div>
+                            </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

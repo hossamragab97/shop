@@ -31,7 +31,7 @@
                     <form class="theme-form" method="POST" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
                         <div class="form-group">
                             <label for="email">Email</label>
-                            <input style="background: white !important; color: #5d5d5d !important;" placeholder="Email"
+                            <input placeholder="Email"
                                 name="email" type="email" formControlName="email" [(ngModel)]="email"
                                 class="form-control">
                             <div *ngIf="formFields.email.errors && submitted" class="form-control-error"
@@ -50,7 +50,7 @@
                         <div class="form-group">
                             <label for="review">Password</label>
                             <div class="inner-addon right-addon">
-                                <i (click)="PasswordSecure()"
+                                <i (click)="PasswordSecure()" style="cursor: pointer;"
                                     class="{{(passwordSecure) ? 'fa fa-eye' : 'fa fa-eye-slash'}}"></i>
                                 <input type="{{(passwordSecure) ? 'text' : 'password'}}"
                                     style="background: white !important; color: #5d5d5d !important;"

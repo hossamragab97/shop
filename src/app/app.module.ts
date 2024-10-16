@@ -37,6 +37,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { AdminTodayProductComponent } from './components/admin/admin-today-product/admin-today-product.component';
 import { AdminPhotoSliderComponent } from './components/admin/admin-photo-slider/admin-photo-slider.component';
+import { RegisterComponent } from './components/register/register.component';
 
 const customNotifierOptions: NotifierOptions = {
   position: {
@@ -95,6 +96,7 @@ const customNotifierOptions: NotifierOptions = {
     OrderComponent,
     AdminTodayProductComponent,
     AdminPhotoSliderComponent,
+    RegisterComponent,
   ],
   imports: [
     CommonModule,

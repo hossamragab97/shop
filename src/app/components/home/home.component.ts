@@ -17,8 +17,9 @@ export class HomeComponent implements OnInit {
   modal = [];
   image_path = ConfigVariables.Image_Shop;
 
-  images = []
-  // ["../assets/images/skarpt_shop/banner1.jpeg" , "../assets/images/skarpt_shop/banner2.jpeg" , "../assets/skarpt.jpg"]
+  images = 
+  // []
+   ["../assets/images/skarpt_shop/banner1.jpeg" , "../assets/images/skarpt_shop/banner2.jpeg" , "../assets/skarpt.jpg"]
   constructor(
     private apiservice: ApiService,
     private router: Router,

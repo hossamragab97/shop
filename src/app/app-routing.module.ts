@@ -16,6 +16,7 @@ import { AdminGuard as AdminGuard } from "./security/admin.guard";
 import { OrderComponent } from "./components/order/order.component";
 import { AdminTodayProductComponent } from "./components/admin/admin-today-product/admin-today-product.component";
 import { AdminPhotoSliderComponent } from "./components/admin/admin-photo-slider/admin-photo-slider.component";
+import { RegisterComponent } from "./components/register/register.component";
 
 const appRoutes: Routes = [
     { path:'home' ,component:HomeComponent,},
@@ -57,6 +58,10 @@ const appRoutes: Routes = [
     },
     { 
         path:'login' ,component:LoginComponent,
+        canActivate: [LoginGuard],
+    },
+    { 
+        path:'register' ,component:RegisterComponent,
         canActivate: [LoginGuard],
     },
     { path:'checkout' ,component:CheckoutComponent},
