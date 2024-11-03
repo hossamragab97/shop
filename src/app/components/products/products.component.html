@@ -40,10 +40,13 @@
             <div class="col-sm-3 collection-filter">
                 <!-- side-bar colleps block stat -->
                 <div class="collection-filter-block" style="padding: 10px !important; margin-top: 45px;">
-                    <ng-multiselect-dropdown [placeholder]="'Select Category'" [settings]="dropdownSettings"
+                    <!-- <ng-multiselect-dropdown [placeholder]="'Select Category'" [settings]="dropdownSettings"
                         (onSelect)="onSelectCatogry($event)" (onDeSelect)="onDeSelectCatogry()" [data]="allCategory"
                         [(ngModel)]="selectedCatogry">
-                    </ng-multiselect-dropdown>
+                    </ng-multiselect-dropdown> -->
+                    <ng-select (change)="onSelectCatogry($event)" [items]="allCategory" 
+                    placeholder="Select Category">
+                    </ng-select>
                 </div>
                 <!-- silde-bar colleps block end here -->
             </div>
@@ -55,11 +58,15 @@
                                 <div class="product-wrapper-grid">
                                     <div class="row margin-res">
                                         <div class="col-12 d-block d-lg-none">
-                                            <ng-multiselect-dropdown [placeholder]="'Select Category'"
+                                            <!-- <ng-multiselect-dropdown [placeholder]="'Select Category'"
                                                 [settings]="dropdownSettings" (onSelect)="onSelectCatogry($event)"
                                                 (onDeSelect)="onDeSelectCatogry()" [data]="allCategory"
                                                 [(ngModel)]="selectedCatogry">
-                                            </ng-multiselect-dropdown>
+                                            </ng-multiselect-dropdown> -->
+                                            <ng-select [(ngModel)]="selectedCatogry" (change)="onSelectCatogry($event)" [items]="allCategory" 
+                                            placeholder="Select Category">
+                                            >
+                                            </ng-select>
                                         </div>
 
                                         <!-- if not get any products -->
@@ -81,9 +88,10 @@
                                                     <div class="product-box">
                                                         <div class="img-wrapper">
                                                             <div class="front">
-                                                                <a (click)="getPrdouctInfo(product)" style="cursor: pointer;"
-                                                                    data-toggle="modal" data-target="#quick-view"><img
-                                                                        src="{{product['photo']}}"
+                                                                <a (click)="getPrdouctInfo(product)"
+                                                                    style="cursor: pointer;" data-toggle="modal"
+                                                                    data-target="#quick-view"><img
+                                                                        src="{{product['image']}}"
                                                                         class="img-fluid img_products" alt=""></a>
                                                             </div>
                                                             <div class="cart-info cart-wrap">
@@ -99,11 +107,11 @@
                                                             </div>
                                                         </div>
                                                         <div class="product-detail">
-                                                            <h6 (click)="getPrdouctInfo(product)" (click)="getPrdouctInfo(product)"
+                                                            <h6 (click)="getPrdouctInfo(product)"
                                                                 style="cursor: pointer;" data-toggle="modal"
-                                                                data-target="#quick-view" title="{{product['name']}}"
+                                                                data-target="#quick-view" title="{{product['title']}}"
                                                                 style="color: white;" class="text_inline">
-                                                                {{product['name']}}
+                                                                {{product['title']}}
                                                             </h6>
                                                             <h4 class="color_pound">
                                                                 <span style="font-size: 15px;">{{ currency }}</span>
@@ -139,12 +147,12 @@
                         aria-hidden="true">&times;</span></button>
                 <div class="row">
                     <div class="col-lg-6 col-xs-12">
-                        <div class="quick-view-img"><img src="{{modall['photo']}}" alt=""
+                        <div class="quick-view-img"><img src="{{modall['image']}}" alt=""
                                 class="img-fluid blur-up lazyload search_model"></div>
                     </div>
                     <div class="col-lg-6 rtl-text">
                         <div class="product-right">
-                            <h3>{{modall['name']}}</h3>
+                            <h3>{{modall['title']}}</h3>
                             <h3><span style="font-size: 18px;">{{ currency }}</span>&nbsp;{{modall['price']}}</h3>
                             <div class="border-product">
                                 <h6 class="product-title">product details</h6>
@@ -169,7 +177,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="product-buttons"><a (click)="add_cart(modal[0]['id'],quantity)"
+                            <div class="product-buttons"><a style="margin-left: 0;" (click)="add_cart(modal[0]['id'],quantity)"
                                     class="btn btn-solid" data-dismiss="modal">add to cart</a></div>
                         </div>
                     </div>

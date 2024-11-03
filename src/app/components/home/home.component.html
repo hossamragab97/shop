@@ -32,7 +32,7 @@
                     <div class="front">
                         <a (click)="getPrdouctInfo(product)" style="cursor: pointer;"
                             data-toggle="modal" data-target="#quick-view"><img
-                                src="{{image_path}}{{product['photo']}}" class="img-fluid img_products"
+                                src="{{product['image']}}" class="img-fluid img_products"
                                 alt=""></a>
                     </div>
                     <div class="cart-info cart-wrap">
@@ -49,9 +49,9 @@
                 <div class="product-detail">
                     <h6 (click)="getPrdouctInfo(product)"
                         style="cursor: pointer;" data-toggle="modal"
-                        data-target="#quick-view" title="{{product['name']}}"
+                        data-target="#quick-view" title="{{product['title']}}"
                         style="color: white;" class="text_inline">
-                        {{product['name']}}
+                        {{product['title']}}
                     </h6>
                     <h4 class="color_pound">
                         <span style="font-size: 15px;">{{ currency }}</span>
@@ -79,7 +79,7 @@
                     </div>
                     <div class="col-lg-6 rtl-text">
                         <div class="product-right">
-                            <h3>{{modall['name']}}</h3>
+                            <h3>{{modall['title']}}</h3>
                             <h3><span style="font-size: 18px;">{{ currency }}</span>&nbsp;{{modall['price']}}</h3>
                             <div class="border-product">
                                 <h6 class="product-title">product details</h6>

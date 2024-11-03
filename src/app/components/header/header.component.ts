@@ -27,7 +27,7 @@ export class HeaderComponent implements OnInit{
   accountType;
   country;
   
-  numOfCart;
+  numOfCart = 0;
   
   numberCartChange(num:any) {
     this.numOfCart = num;
@@ -99,13 +99,8 @@ export class HeaderComponent implements OnInit{
       this.login = true;
       this.name = entity['name'].split(' ')[0];
       this.accountType = entity['accountType']
-
       this.country = this.local.get('country');
-
-
-
     }
-
   }
 
   currentLang!: string;

@@ -3,8 +3,8 @@ import {HttpErrorResponse} from "@angular/common/http";
 import {LocalStorageService, SessionStorageService} from "angular-web-storage";
 import {TranslateService} from "@ngx-translate/core";
 import {Router} from "@angular/router";
+import { NotifierService } from "angular-notifier";
 
-declare var $: any;
 @Injectable({
   providedIn: 'root'
 })
@@ -13,14 +13,15 @@ export class APIsErrorHandling{
   constructor(private local: LocalStorageService,
               private translate: TranslateService,
               private session: SessionStorageService,
-              private router: Router) { }
+              private router: Router,
+              private notifierService: NotifierService
+            ) { }
 
   errorHandling(error: HttpErrorResponse){
-    let trans;
     if (error.status == 401) {
-      trans = "Unauthorized";
+      var trans = "Unauthorized";
       this.translate.get(trans).subscribe(res => {
-        $.notify({ message: res }, { type: "danger" });
+        this.notifierService.notify('error', res)
       });
       this.local.set('currentUser', null);
 
@@ -28,45 +29,47 @@ export class APIsErrorHandling{
         window.location.reload();
       });
     } else if (error.status == 400) {
-      trans = "Bad Request";
+      var trans = "Bad Request";
       this.translate.get(trans).subscribe(res => {
-        $.notify({ message: res }, { type: "warning" });
+        this.notifierService.notify('error', res)
       });
     }
     else if (error.status == 201) {
-      trans = "Error In your data with dublicate or unkwon values";
+      var trans = "Error In your data with dublicate or unkwon values";
       this.translate.get(trans).subscribe(res => {
-        $.notify({ message: res }, { type: "warning" });
+        this.notifierService.notify('error', res)
       });
     }
     else if (error.status == 500) {
-      trans = "Contact With Technical Team";
+      var trans = "Contact With Technical Team";
       this.translate.get(trans).subscribe(res => {
-        $.notify({ message: res }, { type: "warning" });
+        this.notifierService.notify('error', res)
       });
 
     } else if (error.status == 404) {
-      trans = "Service not found";
+
+      var trans = "Service not found";
       this.translate.get(trans).subscribe(res => {
-        $.notify({ message: res }, { type: "danger" });
+        this.notifierService.notify('error', res)
       });
     }
     else if (error.status == 408) {
-      trans = "Service Time Out";
+
+      var trans = "Service Time Out";
       this.translate.get(trans).subscribe(res => {
-        $.notify({ message: res }, { type: "danger" });
+        this.notifierService.notify('error', res)
       });
     }
     else if (error.status == 0) {
-      trans = "Something went wrong, Please try again later";
+      var trans = "Something went wrong, Please try again later";
       this.translate.get(trans).subscribe(res => {
-        $.notify({ message: res }, { type: "danger" });
+        this.notifierService.notify('error', res)
       });
     }
     else {
-      trans = "Something went wrong, Please try again later";
+      var trans = "Something went wrong, Please try again later";
       this.translate.get(trans).subscribe(res => {
-        $.notify({ message: res }, { type: "danger" });
+        this.notifierService.notify('error', res)
       });
     }
   }

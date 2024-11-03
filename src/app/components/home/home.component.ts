@@ -17,9 +17,11 @@ export class HomeComponent implements OnInit {
   modal = [];
   image_path = ConfigVariables.Image_Shop;
 
-  images = 
-  // []
-   ["../assets/images/skarpt_shop/banner1.jpeg" , "../assets/images/skarpt_shop/banner2.jpeg" , "../assets/skarpt.jpg"]
+  images =
+    // []
+    ["../assets/images/banner11.jpg", "../assets/images/banner22.jpg", "../assets/images/banner33.jpg"]
+  //  ["../assets/images/skarpt_shop/banner1.jpeg" , "../assets/images/skarpt_shop/banner2.jpeg" , "../assets/skarpt.jpg"]
+  //  ["../assets/images/skarpt_shop/banner1.jpg" , "../assets/images/skarpt_shop/banner2.jpg" , "../assets/images/skarpt_shop/banner2.jpg" "../assets/skarpt.jpg"]
   constructor(
     private apiservice: ApiService,
     private router: Router,
@@ -70,14 +72,26 @@ export class HomeComponent implements OnInit {
   }
 
   getTodayProducts() {
-    this.apiservice.getTodayProducts().subscribe(
-      (responce) => {
-        this.products = responce['data'];
-      },
-      (error) => {
-        console.log('error: ' + error['responseCode']);
-      }
-    );
+
+    // this.apiservice.getTodayProducts().subscribe(
+    //   (responce) => {
+    //     this.products = responce['data'];
+    //   },
+    //   (error) => {
+    //     console.log('error: ' + error['responseCode']);
+    //   }
+    // );
+
+    fetch('https://fakestoreapi.com/products?limit=3')
+      .then(res => res.json())
+      .then(json => {
+        this.products = json
+        console.log('hossam', json)
+      })
+
+      fetch('https://fakestoreapi.com/carts')
+            .then(res=>res.json())
+            .then(json=>console.log(json))
   }
 
   add_cart(id, quantity) {
@@ -134,7 +148,7 @@ export class HomeComponent implements OnInit {
   plus() {
     this.quantity++;
   }
-  
+
   mins() {
     if (this.quantity > 1) {
       this.quantity--;

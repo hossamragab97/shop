@@ -2,8 +2,7 @@ import { Component, OnInit, Input, EventEmitter, Output, ViewChild, AfterViewIni
 import { ApiService } from 'src/app/network/api.service';
 import { NotifierService } from 'angular-notifier';
 import { Router } from '@angular/router';
-import { IDropdownSettings } from 'ng-multiselect-dropdown';
-
+// import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 declare var $: any;
@@ -20,23 +19,9 @@ export class ProductsComponent implements OnInit {
   quantity = 1;
   products = [];
   modal = [];
-  dropdownSettings: IDropdownSettings;
-  allCategory = [
-    // {
-    // id:1,
-    // name:'gateway'
-    // },
-    // {
-    //   id:2,
-    //   name:'sensor'
-    //   },
-  ]
-  selectedCatogry = [
-    // {
-    //   id:1,
-    //   name:'gateway'
-    //   },
-  ];
+  // dropdownSettings: IDropdownSettings;
+  allCategory = []
+  selectedCatogry = '';
 
 
   constructor(
@@ -63,15 +48,15 @@ export class ProductsComponent implements OnInit {
     //get allCatogry
     this.getAllCategory();
 
-    this.dropdownSettings = {
-      singleSelection: true,
-      idField: 'id',
-      textField: 'name',
-      selectAllText: 'selectAll',
-      unSelectAllText: 'unSelectAll',
-      itemsShowLimit: 2,
-      allowSearchFilter: true,
-    };
+    // this.dropdownSettings = {
+    //   singleSelection: true,
+    //   idField: 'id',
+    //   textField: 'name',
+    //   selectAllText: 'selectAll',
+    //   unSelectAllText: 'unSelectAll',
+    //   itemsShowLimit: 2,
+    //   allowSearchFilter: true,
+    // };
 
     $(document).ready(function () {
       let body = <HTMLDivElement>document.body;
@@ -140,67 +125,104 @@ export class ProductsComponent implements OnInit {
     this.quantity = 1;
     this.modal = []
     this.modal.push(i)
-    console.log('modalllllllllll', (this.modal))
   }
 
 
   getAllProducts(search, selectedCatogry) {
-    this.spinner.show('loadProducts');
-    this.apiservice.getAllProducts(search, selectedCatogry).subscribe(
-      (responce) => {
-        this.products = responce['data'];
-        this.spinner.hide('loadProducts');
-      },
-      (error) => {
-        this.spinner.hide('loadProducts');
-        console.log('error: ' + error['responseCode']);
+    // this.spinner.show('loadProducts');
+    // this.apiservice.getAllProducts(search, selectedCatogry).subscribe(
+    //   (responce) => {
+    //     this.products = responce['data'];
+    //     this.spinner.hide('loadProducts');
+    //   },
+    //   (error) => {
+    //     this.spinner.hide('loadProducts');
+    //     console.log('error: ' + error['responseCode']);
+    //   }
+    // );
+
+    fetch('https://fakestoreapi.com/products')
+      .then(res => res.json())
+      .then(json => {
+        this.products = json
       }
-    );
+      )
   }
 
   searchProduct(search: any) {
     if (search != '') {
       this.isPlaceholderError = false;
-      this.spinner.show('loadProducts');
-
-      let idCategory = 0;
-      //check if category selected
-      if (this.selectedCatogry.length > 0) {
-        console.log('idCategory', idCategory)
-        idCategory = this.selectedCatogry[0].id;
-        console.log('idCategory', idCategory)
+      console.log('this.selectedCatogry' ,this.selectedCatogry)
+      if(this.selectedCatogry != ''){
+        fetch('https://fakestoreapi.com/products/category/'+this.selectedCatogry)
+        .then(res => res.json())
+        .then(json => {
+          this.products = json
+          this.products =  this.products.filter(product =>
+            product.title.toLowerCase().includes(this.search.toLowerCase())
+          );
+        }
+        )
+      }else{
+        fetch('https://fakestoreapi.com/products')
+        .then(res => res.json())
+        .then(json => {
+          this.products = json
+          this.products =  this.products.filter(product =>
+            product.title.toLowerCase().includes(this.search.toLowerCase())
+          );
+        }
+        )
       }
 
-      this.apiservice.getAllProducts(search, idCategory).subscribe(
-        (responce) => {
-          console.log('')
-          this.products = responce['data'];
-          this.spinner.hide('loadProducts');
-        },
-        (error) => {
-          this.spinner.hide('loadProducts');
-          console.log('error: ' + error['responseCode']);
-        }
-      );
+      // this.spinner.show('loadProducts');
+      // let idCategory = 0;
+      // //check if category selected
+      // if (this.selectedCatogry.length > 0) {
+      //   console.log('idCategory', idCategory)
+      //   idCategory = this.selectedCatogry[0].id;
+      //   console.log('idCategory', idCategory)
+      // }
+
+      // this.apiservice.getAllProducts(search, idCategory).subscribe(
+      //   (responce) => {
+      //     console.log('')
+      //     this.products = responce['data'];
+      //     this.spinner.hide('loadProducts');
+      //   },
+      //   (error) => {
+      //     this.spinner.hide('loadProducts');
+      //     console.log('error: ' + error['responseCode']);
+      //   }
+      // );
     } else {
       this.isPlaceholderError = true;
     }
   }
 
   onSelectCatogry(item) {
-    this.search = ''
-    let idCategory = item.id;
-    this.spinner.show('loadProducts');
-    this.apiservice.getProductsByCategory(idCategory).subscribe(
-      (responce) => {
-        this.products = responce['data'];
-        this.spinner.hide('loadProducts');
-      },
-      (error) => {
-        this.spinner.hide('loadProducts');
-        console.log('error: ' + error['responseCode']);
-      }
-    );
+    console.log('item', item)
+    this.selectedCatogry = item
+    if (item) {
+      fetch('https://fakestoreapi.com/products/category/' + item)
+        .then(res => res.json())
+        .then(json => this.products = json)
+    } else {
+      this.getAllProducts('', '')
+    }
+    // this.search = ''
+    // let idCategory = item.id;
+    // this.spinner.show('loadProducts');
+    // this.apiservice.getProductsByCategory(idCategory).subscribe(
+    //   (responce) => {
+    //     this.products = responce['data'];
+    //     this.spinner.hide('loadProducts');
+    //   },
+    //   (error) => {
+    //     this.spinner.hide('loadProducts');
+    //     console.log('error: ' + error['responseCode']);
+    //   }
+    // );
   }
 
   onDeSelectCatogry() {
@@ -208,19 +230,35 @@ export class ProductsComponent implements OnInit {
   }
 
   getAllCategory() {
-    this.apiservice.getAllCategory().subscribe(
-      (responce) => {
-        this.allCategory = responce['data'];
-      },
-      (error) => {
-        console.log('error: ' + error['responseCode']);
+    // this.apiservice.getAllCategory().subscribe(
+    //   (responce) => {
+    //     this.allCategory = responce['data'];
+    //   },
+    //   (error) => {
+    //     console.log('error: ' + error['responseCode']);
+    //   }
+    // );
+
+    fetch('https://fakestoreapi.com/products/categories')
+      .then(res => res.json())
+      .then(json => {
+        console.log('json', json)
+        this.allCategory = json
       }
-    );
+      )
   }
 
   searchChange(event) {
+    console.log('event ' , event)
     if (event) {
       this.isPlaceholderError = false;
+      this.searchProduct(this.search)
+    }else{
+      if(this.selectedCatogry != ''){
+        this.onSelectCatogry(this.selectedCatogry)
+      }else{
+        this.getAllProducts(this.search, 0)
+      }
     }
   }
 

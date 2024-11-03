@@ -38,6 +38,7 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { AdminTodayProductComponent } from './components/admin/admin-today-product/admin-today-product.component';
 import { AdminPhotoSliderComponent } from './components/admin/admin-photo-slider/admin-photo-slider.component';
 import { RegisterComponent } from './components/register/register.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 const customNotifierOptions: NotifierOptions = {
   position: {
@@ -120,6 +121,7 @@ const customNotifierOptions: NotifierOptions = {
     NgMultiSelectDropDownModule.forRoot(),
     NotifierModule.withConfig(customNotifierOptions),
     SweetAlert2Module.forRoot(),
+    NgSelectModule
   ],
   providers: [
     AuthGuard,

@@ -2,3 +2,5 @@
 body {
     padding-right: 0 !important;
   }
+
+  @import "~@ng-select/ng-select/themes/default.theme.css";
