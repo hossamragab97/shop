@@ -1,4 +1,4 @@
-import { Component, OnInit ,NgZone, Input, ViewChild, AfterViewInit} from '@angular/core';
+import { Component, OnInit, NgZone, Input, ViewChild, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { ApiService } from 'src/app/network/api.service';
@@ -9,76 +9,73 @@ import { ProductsComponent } from '../products/products.component';
 import { Subscription } from 'rxjs';
 // import {Subscription, timer} from 'rxjs';  
 // import { map, catchError } from 'rxjs/operators';
- 
+
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
 })
-export class HeaderComponent implements OnInit{
+export class HeaderComponent implements OnInit {
   // timerSubscription: Subscription; 
 
-  subscription: Subscription; 
+  subscription: Subscription;
 
-  @ViewChild(ProductsComponent) products; 
+  @ViewChild(ProductsComponent) products;
   login = false;
   name = '';
   accountType;
   country;
-  
+
   numOfCart = 0;
-  
-  numberCartChange(num:any) {
+
+  numberCartChange(num: any) {
+
     this.numOfCart = num;
     // alert(this.itemF); 
   }
   ngOnInit(): void {
+    this.country = this.local.get('country');
 
-    this.apiService.getNumOfCart().subscribe(
-      res=>{
-        if(res['data'][0] !=null){
-          this.numOfCart=res['data']
-        }else{
-          this.numOfCart=0
-        }
-      }
-    )
+    let cart = this.local.get('cart')
+    if(cart){
+      this.numOfCart = (JSON.parse(cart)).length
+    }
+
+
+    this.login = this.local.get('token')
+    if (this.login) {
+      let name = (this.local.get('token'))
+      this.name = name.email
+    }
+
+
+    // this.apiService.getNumOfCart().subscribe(
+    //   res=>{
+    //     if(res['data'][0] !=null){
+    //       this.numOfCart=res['data']
+    //     }else{
+    //       this.numOfCart=0
+    //     }
+    //   }
+    // )
 
     // this.numOfCart = this.apiService.getNumOfCart1(); 
     this.subscription = this.apiService.cartChangeNumber
-                         .subscribe(num =>  this.numberCartChange(num)); 
-  
-
-        // this.apiService.getAllCart().subscribe(
-        //     (response)=>{
-        //       let res=response['data'];
-        //       this.numberOfCart=0;
-        //       res.forEach(
-        //         (e)=>{
-        //           this.numberOfCart+=e.quantity
-        //         }
-        //       )
-        //     }
-        //   );
+      .subscribe(num => this.numberCartChange(num));
 
 
-      // timer(0, 10000) call the function immediately and every 1 seconds 
-      // this.timerSubscription = timer(0, 1000).pipe( 
-      //   map(() => { 
-      //     this.apiService.getAllCart().subscribe(
-      //       (response)=>{
-      //         let res=response['data'];
-      //         this.numberOfCart=0;
-      //         res.forEach(
-      //           (e)=>{
-      //             this.numberOfCart+=e.quantity
-      //           }
-      //         )
-      //       }
-      //     )
-      //   }) 
-      // ).subscribe(); 
+    // this.apiService.getAllCart().subscribe(
+    //     (response)=>{
+    //       let res=response['data'];
+    //       this.numberOfCart=0;
+    //       res.forEach(
+    //         (e)=>{
+    //           this.numberOfCart+=e.quantity
+    //         }
+    //       )
+    //     }
+    //   );
 
 
 
@@ -90,17 +87,6 @@ export class HeaderComponent implements OnInit{
     //   }
     // }
 
-
-    if (this.local.get('currentUser')) {
-      var currentUser = this.local.get('currentUser');
-      currentUser = JSON.parse(currentUser);
-      var entity = currentUser["entity"][0];
-      // let currentUser=localStorage.getItem('currentUser')
-      this.login = true;
-      this.name = entity['name'].split(' ')[0];
-      this.accountType = entity['accountType']
-      this.country = this.local.get('country');
-    }
   }
 
   currentLang!: string;
@@ -123,30 +109,24 @@ export class HeaderComponent implements OnInit{
   }
 
   logOut() {
-    this.apiService.logout().subscribe(
-      (response) => {
-        if (response['responseCode'] == 200) {
-          this.local.remove('currentUser');
-          // this.local.remove('country');
-          window.location.href = 'home';
-          this.login = false;
-        }
-      },
-      (error) => {
-        this.notifierService.notify('error', error.error.message)
-        console.log('error: ' + error);
-      }
-    );    // localStorage.removeItem('currentUser')
-    // this.accountType=0;
-  }
-
-  shop() {
-    let check = this.apiService.getUserLoggedIn()
-    if (check) {
-      this.router.navigate(['/products'])
-    } else {
-      this.router.navigate(['/login'])
-    }
+    this.local.remove('token')
+    this.router.navigate(['home']).then(() => {
+      window.location.reload();
+    });
+    // this.apiService.logout().subscribe(
+    //   (response) => {
+    //     if (response['responseCode'] == 200) {
+    //       this.local.remove('currentUser');
+    //       // this.local.remove('country');
+    //       window.location.href = 'home';
+    //       this.login = false;
+    //     }
+    //   },
+    //   (error) => {
+    //     this.notifierService.notify('error', error.error.message)
+    //     console.log('error: ' + error);
+    //   }
+    // ); 
   }
 
   changeCountry(country) {
@@ -156,12 +136,12 @@ export class HeaderComponent implements OnInit{
       this.local.set('country', 'Ksa')
     }
 
-    if(this.accountType==1){
-    window.location.href = 'admin';
+    if (this.accountType == 1) {
+      window.location.href = 'admin';
 
       // this.router.navigate(['admin'])
-    }else{
-    window.location.href = 'home';
+    } else {
+      window.location.href = 'home';
 
       // this.router.navigate(['home'])
 

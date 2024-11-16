@@ -59,3 +59,7 @@
 #swal2-title{
   color: white !important;
 }
+
+.notifier__notification--material .notifier__notification-message{
+  color: white;
+}

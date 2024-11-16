@@ -36,10 +36,10 @@
                                 alt=""></a>
                     </div>
                     <div class="cart-info cart-wrap">
-                        <button (click)="add_cart(product['id'],quantity)"
+                        <button (click)="add_cart(product['id'],quantity,product)"
                             title="Add to cart"><i
                                 class="fa fa-shopping-cart"></i></button>
-                        <a style="cursor: pointer;" (click)="add_wishlist(product['id'])"
+                        <a style="cursor: pointer;" (click)="add_wishlist(product['id'] , product)"
                             title="Add to Wishlist"><i class="fa fa fa-heart-o"
                                 aria-hidden="true"></i></a>
                         <!-- <a href="#" data-toggle="modal" data-target="#quick-view" title="Quick View"><i
@@ -74,7 +74,7 @@
                         aria-hidden="true">&times;</span></button>
                 <div class="row">
                     <div class="col-lg-6 col-xs-12">
-                        <div class="quick-view-img"><img src="{{image_path}}{{modall['photo']}}" alt=""
+                        <div class="quick-view-img"><img src="{{modall['image']}}" alt=""
                                 class="img-fluid blur-up lazyload search_model"></div>
                     </div>
                     <div class="col-lg-6 rtl-text">
@@ -103,7 +103,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="product-buttons"><a (click)="add_cart(modal[0]['id'],quantity)" class="btn btn-solid"
+                            <div class="product-buttons"><a (click)="add_cart(modal[0]['id'],quantity,modal[0])" class="btn btn-solid"
                                     data-dismiss="modal">add to cart</a></div>
                         </div>
                     </div>

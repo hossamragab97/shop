@@ -95,11 +95,11 @@
                                                                         class="img-fluid img_products" alt=""></a>
                                                             </div>
                                                             <div class="cart-info cart-wrap">
-                                                                <button (click)="add_cart(product['id'],quantity)"
+                                                                <button (click)="add_cart(product['id'],quantity,product)"
                                                                     title="Add to cart"><i
                                                                         class="fa fa-shopping-cart"></i></button>
                                                                 <a style="cursor: pointer;"
-                                                                    (click)="add_wishlist(product['id'])"
+                                                                    (click)="add_wishlist(product['id'],product)"
                                                                     title="Add to Wishlist"><i class="fa fa fa-heart-o"
                                                                         aria-hidden="true"></i></a>
                                                                 <!-- <a href="#" data-toggle="modal" data-target="#quick-view" title="Quick View"><i
@@ -177,7 +177,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="product-buttons"><a style="margin-left: 0;" (click)="add_cart(modal[0]['id'],quantity)"
+                            <div class="product-buttons"><a style="margin-left: 0;" (click)="add_cart(modal[0]['id'],quantity,modal[0])"
                                     class="btn btn-solid" data-dismiss="modal">add to cart</a></div>
                         </div>
                     </div>

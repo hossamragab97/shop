@@ -16,7 +16,7 @@
                 </nav>
             </div>
         </div>
-    </div>  
+    </div>
 </div>
 <!-- breadcrumb End -->
 
@@ -24,55 +24,57 @@
 <div class="container">
     <div class="row">
         <div *ngFor="let cart of allCart ; let index=index" class="col-lg-4 col-md-6 col-xs-12">
-        <div class="card" style="height: 300px;border: 1px solid; margin-top:20px ;" >
-                <img src="{{cart.image}}" class="card-img-top cart_img" style="margin: 0 auto; margin-top: 10px" alt="...">
+            <div class="card" style="height: 300px;border: 1px solid; margin-top:20px ;">
+                <img src="{{cart.image}}" class="card-img-top cart_img"
+                    style="margin: 0 auto; margin-top: 10px;height: 150px;" alt="...">
                 <div class="card-body">
-              <h5 class="name_text" class="card-title">{{cart.name}}</h5>
-              <p  style="white-space:nowrap;
+                    <h5 class="name_text" class="card-title">{{cart.name}}</h5>
+                    <p style="white-space:nowrap;
                          overflow:hidden;
                          text-overflow:ellipsis;
-                         cursor:pointer;"
-                  class="card-text description"
-                  title="{{cart.description}}">
-                  {{cart.description==''?'.':cart.description}}
-              </p>
-              <div style="display:flex;">
-                <div style="padding: 5px;">Qty:</div>
-                <input (focus)="focusQuantity(index)" type="text" style="width: 60px;" maxlength="3"
-                    oninput="this.value = this.value.replace(/[^0-9]/g, ''); this.value = this.value.replace(/(\..*)\./g, '$1');"
-                    placeholder="quantity" [(ngModel)]="cart.quantity" (ngModelChange)="changeQuantity($event,index)">
-                &nbsp;&nbsp;
-                <!-- <a *ngIf="style[index]" (click)="editCartQuantity(i.id,i.quantity)"
+                         cursor:pointer;" class="card-text description" title="{{cart.description}}">
+                        {{cart.description==''?'.':cart.description}}
+                    </p>
+                    <div style="display:flex;">
+                        <div style="padding: 5px;">Qty:</div>
+                        <input (focus)="focusQuantity(index)" type="text" style="width: 60px;" maxlength="3"
+                            oninput="this.value = this.value.replace(/[^0-9]/g, ''); this.value = this.value.replace(/(\..*)\./g, '$1');"
+                            placeholder="quantity" [(ngModel)]="cart.quantity"
+                            (ngModelChange)="changeQuantity($event,index)">
+                        &nbsp;&nbsp;
+                        <!-- <a *ngIf="style[index]" (click)="editCartQuantity(i.id,i.quantity)"
                     style="cursor: pointer; background-color: rgb(204, 204, 18);padding: 5px; border-radius: 10px; color: rgb(8, 8, 8); font-size: 16px;font-weight:bold ;">
                     edit
                 </a> -->
-                <button style="border-radius: 15px;" *ngIf="style[index]" (click)="editCartQuantity(cart.id,cart.quantity)" class="cart btn btn-warning">
-                    edit
-                   &nbsp;&nbsp;
-                   <i class="fa fa-edit cart-style"></i> 
-                 </button>
+                        <button style="border-radius: 15px;" *ngIf="style[index]"
+                            (click)="editCartQuantity(cart.id,cart.quantity , index)" class="cart btn btn-warning">
+                            edit
+                            &nbsp;&nbsp;
+                            <i class="fa fa-edit cart-style"></i>
+                        </button>
 
-                &nbsp;&nbsp;
-                <!-- <a (click)="deleteIdCart(i.id)" class="text-red"
+                        &nbsp;&nbsp;
+                        <!-- <a (click)="deleteIdCart(i.id)" class="text-red"
                     style="cursor: pointer; text-decoration: underline;padding: 5px;">
                     delete
                 </a> -->
-                <button style="border-radius: 15px;" (click)="deleteIdCart(cart.id)"  class="cart btn btn-danger">
-                    Delete
-                   &nbsp;&nbsp;
-                   <i class="fa fa-trash cart-style"></i> 
-                 </button>
-                
-            </div>
-            <h5 class="price" style="margin-top: 10px;">
-                <span>price/1 : </span>
-                <span class="text-red">{{cart.region=='Egypt'?'EGP':'SAR'}}&nbsp;{{cart.price}}</span>
-            </h5>
+                        <button style="border-radius: 15px;" (click)="deleteIdCart(cart.id)"
+                            class="cart btn btn-danger">
+                            Delete
+                            &nbsp;&nbsp;
+                            <i class="fa fa-trash cart-style"></i>
+                        </button>
+
+                    </div>
+                    <h5 class="price" style="margin-top: 10px;">
+                        <span>price/1 : </span>
+                        <span class="text-red">{{cart.region=='Egypt'?'EGP':'SAR'}}&nbsp;{{cart.price}}</span>
+                    </h5>
+                </div>
             </div>
         </div>
-    </div>
 
-</div>
+    </div>
 </div>
 
 
@@ -118,9 +120,10 @@
     <h4 class="text-right" style="padding: 10px;">
         Subtotal( <span class="text-red">{{numOFQuantity}}</span> items):<span class="text-red">&nbsp;
             <li>
-                <span *ngIf="allTotal[0].egy>0" class="text-red">EGP {{allTotal[0].egy}}</span>
+                <span *ngIf="allTotal[0].egy>0" class="text-red">EGP {{allTotal[0].egy | number:'1.2-2'}}</span>
                 <span *ngIf="allTotal[0].egy>0 && allTotal[0].ksa>0"> and </span>
-                <span *ngIf="allTotal[0].ksa>0"  style="color: rgb(27, 158, 27);" class="count">SAR {{allTotal[0].ksa}}</span>
+                <span *ngIf="allTotal[0].ksa>0" style="color: rgb(27, 158, 27);" class="count">SAR {{allTotal[0].ksa |
+                    number:'1.2-2'}}</span>
             </li>
         </span>
     </h4>
@@ -246,9 +249,18 @@
                 <div class="text-center"><a routerLink="/products" class="btn btn-solid">go shopping</a></div>
             </div>
 
-            <div *ngIf="allCart.length>0" class="col-6"><a routerLink="/products" class="btn btn-solid">continue
-                    shopping</a></div>
-            <div *ngIf="allCart.length>0" class="col-6"><a routerLink="/checkout" class="btn btn-solid">check out</a></div>
+
+
+            <div *ngIf="allCart.length>0" class="col-6">
+                <button *ngIf="allCart.length > 0" class="btn btn-solid" style="margin-right:10px;"
+                    (click)="clearAll()">Clear All
+                    <i class="fa fa fa-times-circle cart-style"></i>
+                </button>
+                <a routerLink="/products" class="btn btn-solid">continue
+                    shopping</a>
+            </div>
+            <div *ngIf="allCart.length>0" class="col-6"><a routerLink="/checkout" class="btn btn-solid">check out</a>
+            </div>
         </div>
     </div>
 </section>

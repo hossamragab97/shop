@@ -8,7 +8,7 @@
                     <div class="header-contact">
                         <ul style="margin-top: 5px;">
                             <li>Welcome to Our store</li>
-                            <li><i class="fa fa-phone" aria-hidden="true"></i>Call Us: +20 233900399</li>
+                            <li><i class="fa fa-phone" aria-hidden="true"></i>Call Us: +20 237800000</li>
                         </ul>
                     </div>
                 </div>
@@ -60,7 +60,7 @@
                                 </div>
                             </div>
                         </li>
-                        <li *ngIf="login">      
+                        <li>      
                             <a class="d-none d-sm-block cart" routerLink="/cart">
                                 <!-- <i class="fa fa-shopping-cart"></i> -->
                                 <i class="fa" style="font-size:24px">&#xf07a;</i>
@@ -120,13 +120,13 @@
                                             {{'home'|translate}}</a>
                                     </li>
                                     <li>
-                                        <a class="header_link_hover" (click)="shop()" style="cursor: pointer;">
+                                        <a class="header_link_hover" routerLink="/products" style="cursor: pointer;">
                                             <!-- <i class="fas fa-store"></i> -->
                                             <!-- <i class="fa-solid fa-store"></i> -->
                                             <i class="fa fa-shopping-bag"></i>
                                             SHOP PAGE</a>
                                     </li>
-                                    <li *ngIf="login" class="d-xl-none">
+                                    <li class="d-xl-none">
                                         <a class="header_link_hover" routerLink="/cart">
                                             <i class="fa fa-shopping-cart"></i>
                                             CART
@@ -135,7 +135,7 @@
                                             </span>
                                         </a>
                                     </li>
-                                    <li *ngIf="login">
+                                    <li>
                                         <a class="header_link_hover" routerLink="/wishlist">
                                             <i class="fa fa-heart"></i>
                                             WISHLIST</a>

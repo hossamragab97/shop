@@ -4,6 +4,7 @@ import { NotifierService } from 'angular-notifier';
 import { Router } from '@angular/router';
 // import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { LocalStorageService } from 'angular-web-storage';
 
 declare var $: any;
 
@@ -29,6 +30,8 @@ export class ProductsComponent implements OnInit {
     private notifierService: NotifierService,
     private router: Router,
     private spinner: NgxSpinnerService,
+    private local: LocalStorageService
+
   ) {
     // this.products=apiservice.products;
   }
@@ -70,46 +73,90 @@ export class ProductsComponent implements OnInit {
   }
 
 
-  add_cart(id, quantity) {
-    quantity = this.quantity;
-    let check = this.apiservice.getUserLoggedIn()
-    if (!check) {
-      this.router.navigate(['/login'])
+  add_cart(id, quantity, product) {
+    let cart = this.local.get('cart')
+    if (cart) {
+      let allCart = JSON.parse(cart)
+      let allIds = allCart.map(cart => cart.id)
+      if (allIds.includes(id)) {
+        this.notifierService.notify('warning', 'Already added before')
+      } else {
+        let body = product
+        body['quantity'] = quantity
+        body['region'] = this.local.get('country')
+        this.notifierService.notify('success', 'Added To Cart');
+        console.log('allCart', allCart)
+        allCart.push(body)
+        this.local.set('cart', JSON.stringify(allCart))
+        this.apiservice.changeCart(allCart.length)
+      }
+
     } else {
-      this.apiservice.addToCart(id, quantity).subscribe(
-        (response) => {
-          if (response['message'] == 'success') {
-            this.notifierService.notify('success', 'Added To Cart');
-            this.apiservice.getNumOfCart().subscribe(
-              res => {
-                let numCart = res['data']
-                this.apiservice.changeCart(numCart)
-              }
-            )
-          } else {
-            this.notifierService.notify('warning', response['message']);
-          }
-        }
-      )
-      this.quantity = 1;
+      let body = product
+      body['quantity'] = quantity
+      body['region'] = this.local.get('country')
+
+      this.notifierService.notify('success', 'Added To Cart');
+      this.local.set('cart', JSON.stringify([body]))
+      this.apiservice.changeCart(1)
     }
+
+    // this.apiservice.addToCart(id, quantity).subscribe(
+    //   (response) => {
+    //     if (response['message'] == 'success') {
+    //       this.notifierService.notify('success', 'Added To Cart');
+    //       this.apiservice.getNumOfCart().subscribe(
+    //         res => {
+    //           let numCart = res['data']
+    //           this.apiservice.changeCart(numCart)
+    //         }
+    //       )
+    //     } else {
+    //       this.notifierService.notify('warning', response['message']);
+    //     }
+    //   }
+    // )
   }
 
-  add_wishlist(id) {
-    let check = this.apiservice.getUserLoggedIn()
-    if (!check) {
-      this.router.navigate(['/login'])
-    } else {
-      this.apiservice.addToWishlist(id).subscribe(
-        (response) => {
-          if (response['message'] == 'success') {
-            this.notifierService.notify('success', 'Added To WishList');
-          } else {
-            this.notifierService.notify('warning', response['message']);
-          }
+  add_wishlist(id, product) {
+    let wishlist = this.local.get('wishlist')
+    let allCart = JSON.parse(this.local.get('cart'))
+    let allIds = allCart.map(cart => cart.id)
+    if (allIds.includes(id)) {
+      this.notifierService.notify('warning', 'Exist in Cart before')
+    }else{
+      if (wishlist) {
+        let allWishlist = JSON.parse(wishlist)
+        let allIds = allWishlist.map(wishlist => wishlist.id)
+        if (allIds.includes(id)) {
+          this.notifierService.notify('warning', 'Already added before')
+        } else {
+          let body = product
+          body['region'] = this.local.get('country')
+          body['quantity'] = 1
+          this.notifierService.notify('success', 'Added To Cart');
+          allWishlist.push(body)
+          this.local.set('wishlist', JSON.stringify(allWishlist))
         }
-      )
+      } else {
+        let body = product
+        body['region'] = this.local.get('country')
+        body['quantity'] = 1
+        this.notifierService.notify('success', 'Added To Wishlist');
+        this.local.set('wishlist', JSON.stringify([body]))
+      }
     }
+
+    // this.apiservice.addToWishlist(id).subscribe(
+    //   (response) => {
+    //     if (response['message'] == 'success') {
+    //       this.notifierService.notify('success', 'Added To WishList');
+    //     } else {
+    //       this.notifierService.notify('warning', response['message']);
+    //     }
+    //   }
+    // )
+
   }
 
   plus() {
@@ -152,27 +199,27 @@ export class ProductsComponent implements OnInit {
   searchProduct(search: any) {
     if (search != '') {
       this.isPlaceholderError = false;
-      console.log('this.selectedCatogry' ,this.selectedCatogry)
-      if(this.selectedCatogry != ''){
-        fetch('https://fakestoreapi.com/products/category/'+this.selectedCatogry)
-        .then(res => res.json())
-        .then(json => {
-          this.products = json
-          this.products =  this.products.filter(product =>
-            product.title.toLowerCase().includes(this.search.toLowerCase())
-          );
-        }
-        )
-      }else{
+      console.log('this.selectedCatogry', this.selectedCatogry)
+      if (this.selectedCatogry != '') {
+        fetch('https://fakestoreapi.com/products/category/' + this.selectedCatogry)
+          .then(res => res.json())
+          .then(json => {
+            this.products = json
+            this.products = this.products.filter(product =>
+              product.title.toLowerCase().includes(this.search.toLowerCase())
+            );
+          }
+          )
+      } else {
         fetch('https://fakestoreapi.com/products')
-        .then(res => res.json())
-        .then(json => {
-          this.products = json
-          this.products =  this.products.filter(product =>
-            product.title.toLowerCase().includes(this.search.toLowerCase())
-          );
-        }
-        )
+          .then(res => res.json())
+          .then(json => {
+            this.products = json
+            this.products = this.products.filter(product =>
+              product.title.toLowerCase().includes(this.search.toLowerCase())
+            );
+          }
+          )
       }
 
       // this.spinner.show('loadProducts');
@@ -202,6 +249,7 @@ export class ProductsComponent implements OnInit {
 
   onSelectCatogry(item) {
     console.log('item', item)
+    this.search = ''
     this.selectedCatogry = item
     if (item) {
       fetch('https://fakestoreapi.com/products/category/' + item)
@@ -249,14 +297,14 @@ export class ProductsComponent implements OnInit {
   }
 
   searchChange(event) {
-    console.log('event ' , event)
+    console.log('event ', event)
     if (event) {
       this.isPlaceholderError = false;
       this.searchProduct(this.search)
-    }else{
-      if(this.selectedCatogry != ''){
+    } else {
+      if (this.selectedCatogry != '') {
         this.onSelectCatogry(this.selectedCatogry)
-      }else{
+      } else {
         this.getAllProducts(this.search, 0)
       }
     }

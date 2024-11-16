@@ -24,7 +24,7 @@
     <div class="row">
         <div *ngFor="let wishlist of allWishlist ; let index=index" class="col-lg-4 col-md-6 col-xs-12">
         <div class="card" style="height: 300px;border: 1px solid; margin-top:20px ;" >
-                <img src="{{wishlist.image}}" class="card-img-top cart_img" style="margin: 0 auto; margin-top: 10px" alt="...">
+                <img src="{{wishlist.image}}" class="card-img-top cart_img" style="margin: 0 auto; margin-top: 10px;height: 150px;" alt="...">
                 <div class="card-body">
               <h5 class="name_text" class="card-title">{{wishlist.name}}</h5>
               <p  style="white-space:nowrap;
@@ -36,7 +36,7 @@
                   {{wishlist.description==''?'.':wishlist.description}}
               </p>
               <div style="display:flex;justify-content: center;">
-                <button (click)="add_cart(wishlist.id)" class="cart btn btn-success">
+                <button (click)="add_cart(wishlist.id , wishlist)" class="cart btn btn-success">
                    add to cart 
                   &nbsp;&nbsp;
                   <i class="ti-shopping-cart cart-style"></i> 

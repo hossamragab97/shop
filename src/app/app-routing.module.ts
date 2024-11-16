@@ -22,7 +22,7 @@ const appRoutes: Routes = [
     { path:'home' ,component:HomeComponent,},
     { 
         path:'admin' ,component:AdminComponent,
-        canActivate: [AdminGuard],       
+        // canActivate: [AdminGuard],       
     },
     { 
         path:'admin-create' ,component:AdminCreateComponent,
@@ -46,11 +46,11 @@ const appRoutes: Routes = [
     },
     {
         path:'cart' ,component:MyCartComponent,
-        canActivate: [AuthGuard],
+        // canActivate: [AuthGuard],
     },
     {
         path:'wishlist' ,component:WishlistComponent,
-        canActivate: [AuthGuard],
+        // canActivate: [AuthGuard],
     },
     {
         path:'order' ,component:OrderComponent,
@@ -64,7 +64,9 @@ const appRoutes: Routes = [
         path:'register' ,component:RegisterComponent,
         canActivate: [LoginGuard],
     },
-    { path:'checkout' ,component:CheckoutComponent},
+    { path:'checkout' ,component:CheckoutComponent,
+        canActivate: [AuthGuard],
+    },
     { path: '', redirectTo: '/home', pathMatch: 'full' },
     { path: '**', redirectTo: '/home', pathMatch: 'full' },]
 
